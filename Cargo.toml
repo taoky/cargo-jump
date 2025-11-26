@@ -1,0 +1,13 @@
+[package]
+name = "cargo-jump"
+version = "0.1.0"
+edition = "2024"
+description = "A single command to bump versions in a Cargo workspace based on changed files."
+
+[dependencies]
+anyhow = "1.0.100"
+cargo_metadata = "0.23.1"
+clap = { version = "4.5.53", features = ["derive"] }
+toml_edit = "0.23.7"
+tracing = "0.1.42"
+tracing-subscriber = "0.3.21"
