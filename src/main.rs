@@ -6,8 +6,15 @@ use clap::Parser;
 use toml_edit::DocumentMut;
 use tracing::{debug, info, warn};
 
-#[derive(Parser, Debug)]
-struct Args {
+#[derive(Parser)]
+#[command(name = "cargo")]
+#[command(bin_name = "cargo")]
+enum CargoCli {
+    Jump(JumpArgs),
+}
+
+#[derive(clap::Args)]
+struct JumpArgs {
     /// New version to set
     new_version: String,
 
@@ -79,7 +86,7 @@ fn git_all_files(toplevel: &Path) -> Result<Vec<PathBuf>> {
 
 fn main() {
     tracing_subscriber::fmt::init();
-    let args = Args::parse();
+    let CargoCli::Jump(args) = CargoCli::parse();
     let metadata = MetadataCommand::new()
         .no_deps()
         .exec()
