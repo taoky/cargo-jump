@@ -14,6 +14,7 @@ enum CargoCli {
 }
 
 #[derive(clap::Args)]
+#[command(version, about, long_about = None)]
 struct JumpArgs {
     /// New version to set
     new_version: String,
@@ -133,6 +134,8 @@ fn main() {
         return;
     }
 
+    let mut has_change = false;
+
     for package in all_affected_packages {
         info!(
             "Setting version of package '{}' to '{}'",
@@ -156,6 +159,18 @@ fn main() {
         } else {
             std::fs::write(manifest_path, manifest_content.to_string())
                 .expect("cannot write updated manifest file");
+            has_change = true;
+        }
+    }
+
+    if has_change {
+        info!("Updating Cargo.lock...");
+        let output = std::process::Command::new("cargo")
+            .args(["fetch"])
+            .output()
+            .expect("failed to execute cargo fetch");
+        if !output.status.success() {
+            panic!("cargo fetch failed");
         }
     }
 }

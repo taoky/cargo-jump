@@ -1,6 +1,6 @@
 [package]
 name = "cargo-jump"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 description = "A single command to bump versions in a Cargo workspace based on changed files."
 license = "Unlicense"
