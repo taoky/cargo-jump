@@ -3,6 +3,8 @@ name = "cargo-jump"
 version = "0.1.0"
 edition = "2024"
 description = "A single command to bump versions in a Cargo workspace based on changed files."
+license = "Unlicense"
+repository = "https://github.com/taoky/cargo-jump"
 
 [dependencies]
 anyhow = "1.0.100"
