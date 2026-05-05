@@ -11,3 +11,5 @@ cargo jump 0.20251127.0 --old-tag v0.20251111.0
 If `--old-tag` is not provided, it defaults to updating all packages in the workspace.
 
 If `--dry-run`, no Cargo.toml files will be modified.
+
+For package that shall be always bumped (jumped) no matter if it has been modified or not, use `--always-jump`: `--always-jump package_a --always-jump package_b`.

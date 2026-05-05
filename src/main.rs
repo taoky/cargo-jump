@@ -26,6 +26,10 @@ struct JumpArgs {
     /// Don't modify anything
     #[arg(long)]
     dry_run: bool,
+
+    /// List of package that shall be always jumped
+    #[arg(long)]
+    always_jump: Vec<String>,
 }
 
 fn git_toplevel() -> Result<PathBuf> {
@@ -121,7 +125,7 @@ fn main() {
         let is_affected = changed_files
             .iter()
             .any(|changed_file| changed_file.starts_with(manifest_dir));
-        if is_affected {
+        if is_affected || args.always_jump.contains(&package.name) {
             debug!("Package '{}' is affected", package.name);
             all_affected_packages.push(package);
         } else {
